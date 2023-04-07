@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+ <center>
+        <h1>BMI Calculator</h1>
+    <div class="calculator">
+      <label>Gender:</label>
+      <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <br>
+      <label>Age (in years):</label>
+      <input type="number" min="0" id="age">
+      <br>
+      <label>Weight (in kg):</label>
+      <input type="number" min="0" id="weight">
+      <br>
+      <label>Height (in meters(1.86)):</label>
+      <input type="number" min="0" id="height">
+      <br>
+      <button onclick="calculateBMI()">Calculate BMI</button>
+      <br>
+      <label>Your BMI is:</label>
+      <span id="bmi"></span>
+      <br>
+      <label>Your BMI category is:</label>
+      <span id="category"></span>
+    </div>
+ </center>
+    <style>
+body{margin: 0}
+      h1 {
+        text-align: center;
+        color: #fff;
+        background-color: #4CAF50;
+        padding: 10px;
+      }
+
+      .calculator {
+        width: 300px;
+        margin: 0 auto;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+      }
+
+      label {
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      input[type="number"] {
+        width: 140px;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+      }
+
+      select {
+        width: 150px;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+      }
+
+      span {
+        font-weight: bold;
+        color: #333;
+      }
+
+      #category {
+        color: rgb(0, 61, 254);
+        padding: 5px;
+        border-radius: 3px;
+
+      /* Color the BMI category according to its value */
+      #category.Underweight {
+        background-color: #FF9800;
+      }
+
+      #category.Normal {
+        background-color: #4CAF50;
+      }
+
+      #category.Overweight {
+        background-color: #FF9800
+      }
+
+      </style>
+<script>
+  function calculateBMI() {
+  var gender = document.getElementById("gender").value;
+  var age = parseInt(document.getElementById("age").value);
+  var weight = parseFloat(document.getElementById("weight").value);
+  var height = parseFloat(document.getElementById("height").value);
+
+  var bmi = weight / (height * height);
+
+  document.getElementById("bmi").innerHTML = bmi.toFixed(2);
+
+  if (age < 2) {
+    document.getElementById("category").innerHTML = "BMI guidelines for infants and toddlers do not apply.";
+  } else if (age >= 2 && age < 5) {
+    if (bmi < 13) {
+      document.getElementById("category").innerHTML = "Underweight for age";
+    } else if (bmi >= 13 && bmi <= 18.4) {
+      document.getElementById("category").innerHTML = "Normal weight for age";
+    } else if (bmi >= 18.5 && bmi <= 21.9) {
+      document.getElementById("category").innerHTML = "Overweight for age";
+    } else {
+      document.getElementById("category").innerHTML = "Obese for age";
+    }
+  } else if (age >= 5 && age < 18) {
+    if (bmi < 15) {
+      document.getElementById("category").innerHTML = "Underweight for age";
+    } else if (bmi >= 15 && bmi <= 20.9) {
+      document.getElementById("category").innerHTML = "Normal weight for age";
+    } else if (bmi >= 21.0 && bmi <= 24.9) {
+      document.getElementById("category").innerHTML = "Overweight for age";
+    }
+  else {
+      document.getElementById("category").innerHTML = "Obese for age";
+    }
+  } else {
+    if (gender == "male") {
+      if (bmi < 18.5) {
+        document.getElementById("category").innerHTML = "Underweight";
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
+        document.getElementById("category").innerHTML = "Normal weight";
+      } else if (bmi >= 25 && bmi <= 29.9) {
+        document.getElementById("category").innerHTML = "Overweight";
+      } else {
+        document.getElementById("category").innerHTML = "Obese";
+      }
+    } else {
+      if (bmi < 18.5) {
+        document.getElementById("category").innerHTML = "Underweight";
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
+        document.getElementById("category").innerHTML = "Normal weight";
+      } else if (bmi >= 25 && bmi <= 29.9) {
+        document.getElementById("category").innerHTML = "Overweight";
+      } else {
+        document.getElementById("category").innerHTML = "Obese";
+      }
+    }
+  }
+
+  if (age < 2 || age > 18) {
+    document.getElementById("valid").innerHTML = "BMI guidelines for this age group do not apply.";
+  } else {
+    document.getElementById("valid").innerHTML = "BMI is valid for this age group.";
+  }
+}
+
+</script>
+</body>
+</html>
